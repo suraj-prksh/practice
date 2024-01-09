@@ -1,0 +1,73 @@
+SELECT slect_list
+FROM t1
+INNER JOIN t2 ON join_condition1
+INNER JOIN t3 ON join_condition2
+..;
+
+
+SELECT select_list
+FROM t1
+INNER JOIN t2 ON join_condition;
+
+
+SELECT productCode, productName, textDescription
+FROM products t1
+INNER JOIN productLines t2 
+ON t1.productLine = t2.productLine;
+
+
+SELECT productCode, productName, textDescription
+FROM products 
+INNER JOIN productLines USING (productLine);
+
+
+SELECT select_list
+FROM t1
+LEFT JOIN t2 
+ON join_condition;
+
+
+SELECT c.customerNumber, c.customerName, o.orderNumber, o.status
+FROM customer c
+LEFT JOIN orders o
+ON c.customerNumber = o.customerNumber;
+
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    ProductID INT,
+    Quantity INT,
+    OrderDate DATE,
+    -- Other columns...
+
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+
+CREATE TABLE orders (
+    orderID INT PRIMARY KEY,
+    productID INT,
+    date DATE,
+
+    FOREIGN KEY (productID) REFERENCES Products(productID)
+)
+
+CREATE TABLE orders (
+    orderID INT PRIMARY KEY
+    produDctID INT,
+    data DATE,
+    ...
+    FOREIGN KEY (productID) REFERENCES products(productID)
+)
+
+
+
+from django.db.models import Avg
+average_price = Book.objects.all().aggragate(avg_price=Avg('price))['avg_price]
+book_with_avrage_price = Book.objects.annotate(avg_price=average_price)
+for book in book_with_avrage_price:
+    print(f"{book.title} {book.avg_price})
+
+from django.db.nodels import Count
+
+author_with_book_count = Books.object.value('author').annotate(book_count=Count('id'))
